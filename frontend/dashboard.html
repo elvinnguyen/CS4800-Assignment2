@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dashboard — Watchlist</title>
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+  <header class="header">
+    <a href="/" class="logo">Watchlist</a>
+    <nav>
+      <span class="header-subtitle">Movie & Show Tracker</span>
+      <button type="button" class="btn btn-primary" id="btn-add-item">+ Add Item</button>
+    </nav>
+  </header>
+
+  <main class="dashboard-main">
+    <div id="message" class="message" role="alert" aria-live="polite" hidden></div>
+    <div id="loading" class="loading" hidden>Loading…</div>
+    <div id="items-container" class="items-grid"></div>
+    <div id="empty-state" class="empty-state" hidden>
+      <p>No items yet. Add your first movie or show.</p>
+      <button type="button" class="btn btn-primary" id="btn-add-first">Add Item</button>
+    </div>
+  </main>
+
+  <!-- Add/Edit Modal -->
+  <div id="item-modal" class="modal" role="dialog" aria-labelledby="modal-title" aria-modal="true" hidden>
+    <div class="modal-backdrop" id="modal-backdrop"></div>
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2 id="modal-title">Add Item</h2>
+        <button type="button" class="modal-close" id="modal-close-btn" aria-label="Close">&times;</button>
+      </div>
+      <form id="item-form">
+        <input type="hidden" id="item-id" name="id">
+        <div class="form-group">
+          <label for="title">Title <span class="required">*</span></label>
+          <input type="text" id="title" name="title" required maxlength="200" placeholder="Movie or show title">
+          <span class="field-error" id="error-title"></span>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label for="type">Type</label>
+            <select id="type" name="type">
+              <option value="Movie">Movie</option>
+              <option value="TV Show">TV Show</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="status">Status</label>
+            <select id="status" name="status">
+              <option value="Planned">Planned</option>
+              <option value="Watching">Watching</option>
+              <option value="Completed">Completed</option>
+              <option value="Dropped">Dropped</option>
+            </select>
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label for="rating">Rating (1–10)</label>
+            <input type="number" id="rating" name="rating" min="1" max="10" placeholder="Optional">
+            <span class="field-error" id="error-rating"></span>
+          </div>
+          <div class="form-group form-group-tv" id="group-current-episode">
+            <label for="current_episode">Current Episode</label>
+            <input type="number" id="current_episode" name="current_episode" min="0" placeholder="Optional">
+          </div>
+          <div class="form-group form-group-tv" id="group-total-episodes">
+            <label for="total_episodes">Total Episodes</label>
+            <input type="number" id="total_episodes" name="total_episodes" min="0" placeholder="Optional">
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="notes">Notes</label>
+          <textarea id="notes" name="notes" rows="3" placeholder="Optional notes"></textarea>
+        </div>
+        <div class="form-actions">
+          <button type="button" class="btn btn-secondary" id="modal-cancel-btn">Cancel</button>
+          <button type="submit" class="btn btn-primary" id="btn-submit">Save</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <script src="/js/dashboard.js"></script>
+</body>
+</html>
