@@ -1,4 +1,5 @@
 """Watchlist — Flask backend and REST API."""
+
 import os
 from datetime import datetime
 from pathlib import Path
@@ -17,8 +18,14 @@ FRONTEND_DIR = PROJECT_ROOT / "frontend"
 
 # Allowed fields for watchlist items
 ITEM_FIELDS = {
-    "title", "type", "status", "rating",
-    "current_episode", "total_episodes", "notes", "date_added"
+    "title",
+    "type",
+    "status",
+    "rating",
+    "current_episode",
+    "total_episodes",
+    "notes",
+    "date_added",
 }
 REQUIRED_FIELDS = {"title"}
 VALID_TYPES = {"Movie", "TV Show"}
@@ -58,7 +65,11 @@ def validate_item(data, for_update=False):
 
     if "type" in data and data["type"] is not None and data["type"] not in VALID_TYPES:
         return f"type must be one of: {', '.join(VALID_TYPES)}", 400
-    if "status" in data and data["status"] is not None and data["status"] not in VALID_STATUSES:
+    if (
+        "status" in data
+        and data["status"] is not None
+        and data["status"] not in VALID_STATUSES
+    ):
         return f"status must be one of: {', '.join(VALID_STATUSES)}", 400
 
     rating = data.get("rating")
@@ -97,6 +108,7 @@ def build_item_from_body(data):
 
 
 # ——— REST API ———
+
 
 @app.route("/api/items", methods=["GET"])
 def list_items():
@@ -179,6 +191,7 @@ def delete_item(item_id):
 
 # ——— Serve frontend ———
 
+
 @app.route("/")
 def index():
     return send_from_directory(FRONTEND_DIR, "index.html")
@@ -196,5 +209,4 @@ def frontend_static(path):
 
 
 if __name__ == "__main__":
-    app.run(host="0.0.0.0", port=5000,
-            debug=os.getenv("FLASK_DEBUG", "1") == "1")
+    app.run(host="0.0.0.0", port=5000, debug=False, use_reloader=False)
