@@ -1,14 +1,14 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-APP_DIR="CS4800-Assignment2"
+APP_DIR="."
 BRANCH="${BRANCH:-main}"
 
 VENV="$APP_DIR/venv"
 PY="$VENV/bin/python"
-APP="$APP_DIR/backend/app.py"
-LOG="$APP_DIR/log.txt"
-PIDFILE="$APP_DIR/app.pid"
+APP="backend/app.py"
+LOG="log.txt"
+PIDFILE="app.pid"
 
 # always operate from repo root
 cd "$(dirname "$0")"
@@ -26,12 +26,10 @@ fi
 # --- install dependencies ---
 "$VENV/bin/pip" install -U pip wheel
 
-if [[ -f "$APP_DIR/requirements.txt" ]]; then
-  "$VENV/bin/pip" install -r "$APP_DIR/requirements.txt"
-elif [[ -f "$APP_DIR/backend/requirements.txt" ]]; then
-  "$VENV/bin/pip" install -r "$APP_DIR/backend/requirements.txt"
+if [[ -f "requirements.txt" ]]; then
+  "$VENV/bin/pip" install -r requirements.txt
 else
-  echo "No requirements.txt found" >&2
+  echo "requirements.txt missing in repo root"
   exit 1
 fi
 
