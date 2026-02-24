@@ -18,4 +18,6 @@ venv/
 # node (frontend)
 node_modules/
 dist/
-build/
+
+github_actions_ec2
+github_actions_ec2.pub
