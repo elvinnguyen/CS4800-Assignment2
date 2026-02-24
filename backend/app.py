@@ -1,6 +1,5 @@
 """Watchlist — Flask backend and REST API."""
 
-import os
 from datetime import datetime
 from pathlib import Path
 
